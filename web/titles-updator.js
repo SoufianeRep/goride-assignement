@@ -29,13 +29,18 @@ const ADJECTIVES = [
 ];
 
 /**
- * @desc takes a store name and retruns the first session from the session storage
- * @param {string} shop store name
- * @returns {Object<SessionParams>} session
+ * A function that changes the provided product title
+ * @desc Takes a product title and prepends a random adjective to it or a new one
+ * if it already has an adjective.
+ *
+ * @param {string} title
+ * @return {string}
  */
-export async function loadSession(shop) {
-  const session = await shopify.config.sessionStorage.findSessionsByShop(shop);
-  return session[0];
+function randomTitle(title) {
+  const randAdj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
+  const firstWord = title.split(' ')[0];
+  if (ADJECTIVES.includes(firstWord)) return title.replace(firstWord, randAdj);
+  return `${randAdj} ${title}`;
 }
 
 /**
@@ -100,16 +105,11 @@ export async function titlesUpdator(session) {
 }
 
 /**
- * A function that changes the provided product title
- * @desc Takes a product title and prepends a random adjective to it or a new one
- * if it already has an adjective.
- *
- * @param {string} title
- * @return {string}
+ * @desc takes a store name and retruns the first session from the session storage
+ * @param {string} shop store name
+ * @returns {Object<SessionParams>} session
  */
-function randomTitle(title) {
-  const randAdj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
-  const firstWord = title.split(' ')[0];
-  if (ADJECTIVES.includes(firstWord)) return title.replace(firstWord, randAdj);
-  return `${randAdj} ${title}`;
+export async function loadSession(shop) {
+  const session = await shopify.config.sessionStorage.findSessionsByShop(shop);
+  return session[0];
 }
