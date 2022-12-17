@@ -10,6 +10,7 @@ import {
   TextField,
   FormLayout,
   Form,
+  Toast,
 } from '@shopify/polaris';
 import { useCallback, useState } from 'react';
 import { useAuthenticatedFetch } from '../hooks';
@@ -18,11 +19,17 @@ export function ProductRow({ product, index }) {
   const [popoverActive, setPopoverActive] = useState(false);
   const [price, setPrice] = useState(product.variants[0].price);
   const [newPrice, setNewPrice] = useState(price);
+  const [isToastActive, setIsToastActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const fetch = useAuthenticatedFetch();
 
   const togglePopover = useCallback(() => {
     setPopoverActive((prevState) => !prevState);
+  }, []);
+
+  const toggleToast = useCallback(() => {
+    setIsToastActive((prevState) => !prevState);
   }, []);
 
   const handleNewPriceChange = useCallback((value) => {
@@ -47,12 +54,21 @@ export function ProductRow({ product, index }) {
         const price = await response.json();
         setPrice(price);
         setIsLoading(false);
+        setIsToastActive(true);
       } else {
         setIsLoading(false);
       }
     },
     [newPrice],
   );
+
+  const toastMarkup = isToastActive ? (
+    <Toast
+      content={`${product.title}'s Price Adjusted`}
+      onDismiss={toggleToast}
+      duration={3500}
+    />
+  ) : null;
 
   const activator = (
     <Button onClick={togglePopover} primary disclosure>
@@ -109,6 +125,7 @@ export function ProductRow({ product, index }) {
           </Form>
         </Popover>
       </IndexTable.Cell>
+      {toastMarkup}
     </IndexTable.Row>
   );
 }

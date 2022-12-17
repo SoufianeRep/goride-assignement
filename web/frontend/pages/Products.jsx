@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react';
 import { useAppQuery } from '../hooks';
 
-import { Card, Page, IndexTable, SkeletonBodyText } from '@shopify/polaris';
+import {
+  Card,
+  Page,
+  IndexTable,
+  SkeletonBodyText,
+  Frame,
+} from '@shopify/polaris';
 import { TitleBar, Loading } from '@shopify/app-bridge-react';
 
 import { ProductRow } from '../components/ProductRow';
@@ -17,12 +22,6 @@ export default function Products() {
     url: '/api/products',
   });
 
-  console.log(products);
-
-  const rowMarkup = products?.map((product, index) => {
-    return <ProductRow product={product} index={index} />;
-  });
-
   const loadingMarkup = (
     <>
       <Loading />
@@ -34,38 +33,44 @@ export default function Products() {
     </>
   );
 
+  const rowMarkup = products?.map((product, index) => {
+    return <ProductRow product={product} index={index} />;
+  });
+
   return (
     <Page>
-      {isLoading || isRefetching ? (
-        loadingMarkup
-      ) : (
-        <>
-          <TitleBar
-            title="Products"
-            breadcrumbs={breadcrumbs}
-            primaryAction={null}
-          ></TitleBar>
+      <Frame>
+        {isLoading || isRefetching ? (
+          loadingMarkup
+        ) : (
+          <>
+            <TitleBar
+              title="Products"
+              breadcrumbs={breadcrumbs}
+              primaryAction={null}
+            ></TitleBar>
 
-          <Card>
-            <IndexTable
-              itemCount={products?.length}
-              resourceName={{
-                plural: 'Products',
-                singular: 'Product',
-              }}
-              selectable={false}
-              headings={[
-                { title: 'Thumbnail', hidden: true },
-                { title: 'Title' },
-                { title: 'Price' },
-                { title: 'Action' },
-              ]}
-            >
-              {rowMarkup}
-            </IndexTable>
-          </Card>
-        </>
-      )}
+            <Card>
+              <IndexTable
+                itemCount={products?.length}
+                resourceName={{
+                  plural: 'Products',
+                  singular: 'Product',
+                }}
+                selectable={false}
+                headings={[
+                  { title: 'Thumbnail', hidden: true },
+                  { title: 'Title' },
+                  { title: 'Price' },
+                  { title: 'Action' },
+                ]}
+              >
+                {rowMarkup}
+              </IndexTable>
+            </Card>
+          </>
+        )}
+      </Frame>
     </Page>
   );
 }
