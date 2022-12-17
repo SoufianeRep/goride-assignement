@@ -38,8 +38,8 @@ app.post(
   shopify.processWebhooks({ webhookHandlers: GDPRWebhookHandlers }),
 );
 
-// the cron job updating the fake shops products every hour using cron-node
-// schedule method
+// The cron job updating the fake shops products every hour on the hour using
+// cron-node schedule method
 cron.schedule('0 0 * * * *', async function () {
   console.log('cron job');
   const session = await loadSession(SHOP);
