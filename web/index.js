@@ -53,7 +53,6 @@ app.use(express.json());
 
 // Get Route to fetch all the products from the store's Admin API
 app.get('/api/products', async (req, res) => {
-  console.log(process.env);
   try {
     const response = await shopify.api.rest.Product.all({
       session: res.locals.shopify.session,
