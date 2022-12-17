@@ -4,6 +4,7 @@ import {
   AppBridgeProvider,
   QueryProvider,
   PolarisProvider,
+  ScrollUp,
 } from './components';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
       <BrowserRouter>
         <AppBridgeProvider>
           <QueryProvider>
+            <ScrollUp />
             <Routes pages={pages} />
           </QueryProvider>
         </AppBridgeProvider>
