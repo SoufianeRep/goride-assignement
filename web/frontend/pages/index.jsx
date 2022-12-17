@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <Page narrowWidth>
       <TitleBar
-        title="GoRide Assignement"
+        title="GoRide Assignment"
         primaryAction={{
           content: 'Products Page',
           onAction: () => navigate('/products'),
@@ -23,26 +23,27 @@ export default function HomePage() {
       />
       <Layout>
         <Layout.Section>
-          <Card title="ASSIGNEMENT EXPLANATION" sectioned>
+          <Card title="ASSIGNMENT EXPLANATION" sectioned>
             <TextContainer spacing="loose">
               <p>
                 First I would like to thank you for giving me this opportunity.
-                Having to get familiar with shopify documentation was a pleasant
+                Having to get familiar with Shopify documentation was a pleasant
                 journey.
               </p>
               <p>
                 Ahead of assessing my work I would like to provide some
-                explanation related to the required taks.
+                explanation related to the required tasks.
               </p>
               <Heading element="h4">Backend Task</Heading>
               <p>
                 The backend fires a job on the hour every hour and updates the
-                fake products names as instructed. It prepends a random
-                adjective to products title if it doesnt have any otherwise it
-                just updates it in the following way: <br />
+                fake product names as instructed. It prepends a random adjective
+                to the product's title if it doesn't have any otherwise it just
+                updates it in the following way:
+                <br />
                 <br />
                 <TextStyle variation="strong">
-                  Fake Product -&gt; Formal Fake Product -&gt; Dark Fake product
+                  Fake Product -&gt; Formal Fake Product -&gt; Dark Fake Product
                 </TextStyle>
               </p>
               <p>
@@ -52,23 +53,23 @@ export default function HomePage() {
                   shopify.validateAuthenticatedSession()
                 </TextStyle>
                 &nbsp; middleware to pull the current session in order to query
-                the store's Admin API. Instead it pulls the session from the
+                the store's Admin API. Instead, it pulls the session from the
                 session storage setup on initialization in this case a local
-                sqlite database.
+                SQLite database.
               </p>
               <Heading element="h4">Frontend Task</Heading>
               <p>
-                The frontend is a simple page listing all the products in the
+                The front end is a simple page listing all the products in the
                 store with a button allowing the user to update the price
                 manually.
               </p>
               <p>
                 Against all my efforts to query the Admin API from the front
-                end, is seems like shopify blocks all requests generated from a
-                browser or a different origin other than the server. As a work
-                around I took the liberty to set up two routes in the back end,
-                one to get all the products and a second to update the chosen
-                product using it's id.
+                end, it seems like Shopify blocks all requests generated from a
+                browser or a different origin other than the server. As a
+                workaround I took the liberty to set up two routes in the back
+                end, one to get all the products and a second to update the
+                chosen product using its id.
               </p>
             </TextContainer>
             <Card.Section>
@@ -78,9 +79,9 @@ export default function HomePage() {
             </Card.Section>
             <TextContainer spacing="loose">
               <p>
-                Hopefully this assignement responds to all your expectations.
-                Looking forward to discuss my code and choices if you deem it
-                deserving.
+                Hopefully, this assignment responds to all your expectations.
+                Looking forward to discussing my code and choices if you deem
+                them deserving.
               </p>
             </TextContainer>
           </Card>

@@ -1,4 +1,4 @@
-import shopify from './shopify.js';
+import shopify from '../shopify.js';
 
 const ADJECTIVES = [
   'Autumn',
@@ -109,7 +109,7 @@ export async function titlesUpdator(session) {
  * @param {string} shop store name
  * @returns {Object<SessionParams>} session
  */
-export async function loadSession(shop) {
-  const session = await shopify.config.sessionStorage.findSessionsByShop(shop);
+export async function loadSession(store) {
+  const session = await shopify.config.sessionStorage.findSessionsByShop(store);
   return session[0];
 }

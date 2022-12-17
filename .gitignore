@@ -18,6 +18,11 @@ logs
 # ngrok tunnel file
 config/tunnel.pid
 
+# fly deploy config
+fly.toml
+
+# makefile
+makefile
 # vite build output
 dist/
 
