@@ -83,7 +83,7 @@ export function ProductRow({ product, index }) {
         <Thumbnail source={ProductCostMajor} alt="placeholder" size="medium" />
       </IndexTable.Cell>
       <IndexTable.Cell>
-        <TextStyle>{product.title}</TextStyle>
+        <TextStyle variation="strong">{product.title}</TextStyle>
       </IndexTable.Cell>
       <IndexTable.Cell>
         {isLoading ? (

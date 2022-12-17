@@ -10,13 +10,14 @@ import serveStatic from 'serve-static';
 import cron from 'node-cron';
 
 import shopify from './shopify.js';
-import { titlesUpdator, loadSession } from './titles-updator.js';
+import { titlesUpdator, loadSession } from './utils/titles-updator.js';
 import GDPRWebhookHandlers from './gdpr.js';
+
+import productsEndpoints from './routes/products-api.js';
 
 // @ts-ignore
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
-const SHOP = `${process.env.SHOP}.myshopify.com`;
-console.log(SHOP);
+const STORE = `${process.env.SHOPIFY_FLAG_STORE}.myshopify.com`;
 
 const STATIC_PATH =
   process.env.NODE_ENV === 'production'
@@ -41,8 +42,7 @@ app.post(
 // The cron job updating the fake shops products every hour on the hour using
 // cron-node schedule method
 cron.schedule('0 0 * * * *', async function () {
-  console.log('cron job');
-  const session = await loadSession(SHOP);
+  const session = await loadSession(STORE);
   await titlesUpdator(session);
 });
 
@@ -56,38 +56,8 @@ cron.schedule('0 0 * * * *', async function () {
 app.use('/api/*', shopify.validateAuthenticatedSession());
 app.use(express.json());
 
-// Get Route to fetch all the products from the store's Admin API
-app.get('/api/products', async (req, res) => {
-  try {
-    const response = await shopify.api.rest.Product.all({
-      session: res.locals.shopify.session,
-    });
-    res.status(200).send(response);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
-
-// Patch route to update a products price with a given ID through the Admin api
-app.patch('/api/products/:id', async (req, res) => {
-  const session = res.locals.shopify.session;
-  try {
-    const product = await shopify.api.rest.Product.find({
-      session,
-      id: req.params.id,
-    });
-
-    const variant = new shopify.api.rest.Variant({ session });
-    variant.id = product.variants[0].id;
-    variant.price = req.body.price;
-    await variant.save({
-      update: true,
-    });
-    res.status(200).send(variant.price);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
+// The required products endpoints
+productsEndpoints(app);
 
 app.use(serveStatic(STATIC_PATH, { index: false }));
 

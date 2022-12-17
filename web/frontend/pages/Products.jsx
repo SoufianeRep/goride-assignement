@@ -12,7 +12,7 @@ import { TitleBar, Loading } from '@shopify/app-bridge-react';
 import { ProductRow } from '../components';
 
 export default function Products() {
-  const breadcrumbs = [{ content: 'GoRide Assignement', url: '/' }];
+  const breadcrumbs = [{ content: 'GoRide Assignment', url: '/' }];
 
   const {
     data: products,
