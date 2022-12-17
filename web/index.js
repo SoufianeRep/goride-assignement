@@ -33,10 +33,6 @@ app.post(
   shopify.processWebhooks({ webhookHandlers: GDPRWebhookHandlers }),
 );
 
-// All endpoints after this point will require an active session
-app.use('/api/*', shopify.validateAuthenticatedSession());
-app.use(express.json());
-
 // the cron job updating the fake shops products every hour using cron-node
 // schedule method
 cron.schedule('* * 1 * * *', async function () {
@@ -45,6 +41,17 @@ cron.schedule('* * 1 * * *', async function () {
   await titlesUpdator(session);
 });
 
+/*
+================================================================================
+  Routes
+================================================================================
+*/
+
+// All endpoints after this point will require an active session
+app.use('/api/*', shopify.validateAuthenticatedSession());
+app.use(express.json());
+
+// Get Route to fetch all the products from the store's Admin API
 app.get('/api/products', async (req, res) => {
   console.log(process.env);
   try {
@@ -57,6 +64,7 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
+// Patch route to update a products price with a given ID through the Admin api
 app.patch('/api/products/:id', async (req, res) => {
   const session = res.locals.shopify.session;
   try {
@@ -71,7 +79,7 @@ app.patch('/api/products/:id', async (req, res) => {
     await variant.save({
       update: true,
     });
-    res.status(201).send(variant.price);
+    res.status(200).send(variant.price);
   } catch (err) {
     res.status(500).send(err.message);
   }
