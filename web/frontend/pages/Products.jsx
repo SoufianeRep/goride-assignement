@@ -26,37 +26,46 @@ export default function Products() {
   const loadingMarkup = (
     <>
       <Loading />
-      <SkeletonBodyText />
-      );
+      <Card sectioned>
+        <SkeletonBodyText />
+        <br />
+        <SkeletonBodyText lines={2} />
+      </Card>
     </>
   );
 
   return (
     <Page>
-      <TitleBar
-        title="Products"
-        breadcrumbs={breadcrumbs}
-        primaryAction={null}
-      ></TitleBar>
+      {isLoading || isRefetching ? (
+        loadingMarkup
+      ) : (
+        <>
+          <TitleBar
+            title="Products"
+            breadcrumbs={breadcrumbs}
+            primaryAction={null}
+          ></TitleBar>
 
-      <Card>
-        <IndexTable
-          itemCount={products?.length}
-          resourceName={{
-            plural: 'Fake products',
-            singular: 'Fake product',
-          }}
-          selectable={false}
-          headings={[
-            { title: 'Thumbnail', hidden: true },
-            { title: 'Title' },
-            { title: 'Price' },
-            { title: 'Action' },
-          ]}
-        >
-          {isLoading || isRefetching ? loadingMarkup : rowMarkup}
-        </IndexTable>
-      </Card>
+          <Card>
+            <IndexTable
+              itemCount={products?.length}
+              resourceName={{
+                plural: 'Products',
+                singular: 'Product',
+              }}
+              selectable={false}
+              headings={[
+                { title: 'Thumbnail', hidden: true },
+                { title: 'Title' },
+                { title: 'Price' },
+                { title: 'Action' },
+              ]}
+            >
+              {rowMarkup}
+            </IndexTable>
+          </Card>
+        </>
+      )}
     </Page>
   );
 }
