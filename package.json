@@ -1,5 +1,5 @@
 {
-  "name": "node-api",
+  "name": "goride-assignement",
   "version": "1.0.0",
   "main": "web/index.js",
   "license": "UNLICENSED",
@@ -15,5 +15,5 @@
     "@shopify/app": "3.25.0",
     "@shopify/cli": "3.25.0"
   },
-  "author": "macbookpro"
+  "author": "Soufiane"
 }

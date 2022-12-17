@@ -12,6 +12,7 @@ import {
   Form,
   Toast,
 } from '@shopify/polaris';
+// import { Toast } from '@shopify/app-bridge-react';
 import { useCallback, useState } from 'react';
 import { useAuthenticatedFetch } from '../hooks';
 
@@ -64,7 +65,7 @@ export function ProductRow({ product, index }) {
 
   const toastMarkup = isToastActive ? (
     <Toast
-      content={`${product.title}'s Price Adjusted`}
+      content={`${product.title}'s price updated`}
       onDismiss={toggleToast}
       duration={3500}
     />
