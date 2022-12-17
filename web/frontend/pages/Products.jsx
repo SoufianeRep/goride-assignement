@@ -9,7 +9,7 @@ import {
 } from '@shopify/polaris';
 import { TitleBar, Loading } from '@shopify/app-bridge-react';
 
-import { ProductRow } from '../components/ProductRow';
+import { ProductRow } from '../components';
 
 export default function Products() {
   const breadcrumbs = [{ content: 'GoRide Assignement', url: '/' }];
@@ -26,9 +26,10 @@ export default function Products() {
     <>
       <Loading />
       <Card sectioned>
-        <SkeletonBodyText />
+        <SkeletonBodyText lines={1} />
         <br />
-        <SkeletonBodyText lines={2} />
+        <br />
+        <SkeletonBodyText />
       </Card>
     </>
   );
@@ -38,7 +39,7 @@ export default function Products() {
   });
 
   return (
-    <Page>
+    <Page narrowWidth>
       <Frame>
         {isLoading || isRefetching ? (
           loadingMarkup

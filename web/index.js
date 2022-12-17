@@ -1,17 +1,22 @@
 // @ts-check
 import { join } from 'path';
 import { readFileSync } from 'fs';
+
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import serveStatic from 'serve-static';
+import cron from 'node-cron';
 
 import shopify from './shopify.js';
 import { titlesUpdator, loadSession } from './titles-updator.js';
-import cron from 'node-cron';
 import GDPRWebhookHandlers from './gdpr.js';
 
 // @ts-ignore
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
-const SHOP = 'gorideassignement.myshopify.com';
+const SHOP = `${process.env.SHOP}.myshopify.com`;
+console.log(SHOP);
 
 const STATIC_PATH =
   process.env.NODE_ENV === 'production'
