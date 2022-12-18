@@ -43,7 +43,8 @@ export default function HomePage() {
                 <br />
                 <br />
                 <TextStyle variation="strong">
-                  Fake Product -&gt; Formal Fake Product -&gt; Dark Fake Product
+                  Fake Product {'->'} Formal Fake Product {'->'} Dark Fake
+                  Product
                 </TextStyle>
               </p>
               <p>
@@ -51,9 +52,9 @@ export default function HomePage() {
                 the
                 <TextStyle variation="code">
                   shopify.validateAuthenticatedSession()
-                </TextStyle>
-                &nbsp; middleware to pull the current session in order to query
-                the store's Admin API. Instead, it pulls the session from the
+                </TextStyle>{' '}
+                middleware to pull the current session in order to query the
+                store's Admin API. Instead, it pulls the session from the
                 session storage setup on initialization in this case a local
                 SQLite database.
               </p>

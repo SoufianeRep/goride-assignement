@@ -40,27 +40,29 @@ export function ProductRow({ product }) {
   const handleSubmitNewPrice = useCallback(
     async (e) => {
       e.preventDefault();
-      setIsLoading(true);
-      const data = { price: newPrice };
-      const response = await fetch(`/api/products/${product.id}`, {
-        method: 'PATCH',
-        headers: {
-          accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      if (price !== newPrice) {
+        setIsLoading(true);
+        const body = { price: newPrice };
+        const response = await fetch(`/api/products/${product.id}`, {
+          method: 'PATCH',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
 
-      if (response.ok) {
-        const price = await response.json();
-        setPrice(price);
-        setToastMessage(`${product.title}'s price updated`);
-        setIsToastActive(true);
-        setIsLoading(false);
-      } else {
-        setToastMessage('Unable to update the price for the moment');
-        setIsToastActive(true);
-        setIsLoading(false);
+        if (response.ok) {
+          const data = await response.json();
+          setPrice(data);
+          setToastMessage(`${product.title}'s price updated`);
+          setIsToastActive(true);
+          setIsLoading(false);
+        } else {
+          setToastMessage('Unable to update the price for the moment');
+          setIsToastActive(true);
+          setIsLoading(false);
+        }
       }
     },
     [newPrice],
@@ -106,7 +108,8 @@ export function ProductRow({ product }) {
             <FormLayout sectioned>
               <Layout.Section>
                 <TextStyle alignement="start" heading>
-                  Adjust {product.title} Price
+                  Adjust{' '}
+                  <TextStyle variants="strong">{product.title}</TextStyle> Price
                 </TextStyle>
               </Layout.Section>
               <Layout.Section>
