@@ -1,12 +1,6 @@
 import { useAppQuery } from '../hooks';
 
-import {
-  Card,
-  Page,
-  IndexTable,
-  SkeletonBodyText,
-  Frame,
-} from '@shopify/polaris';
+import { Card, Page, IndexTable, SkeletonBodyText } from '@shopify/polaris';
 import { TitleBar, Loading } from '@shopify/app-bridge-react';
 
 import { ProductRow } from '../components';
@@ -40,38 +34,36 @@ export default function Products() {
 
   return (
     <Page narrowWidth>
-      <Frame>
-        {isLoading || isRefetching ? (
-          loadingMarkup
-        ) : (
-          <>
-            <TitleBar
-              title="Products"
-              breadcrumbs={breadcrumbs}
-              primaryAction={null}
-            ></TitleBar>
+      {isLoading || isRefetching ? (
+        loadingMarkup
+      ) : (
+        <>
+          <TitleBar
+            title="Products"
+            breadcrumbs={breadcrumbs}
+            primaryAction={null}
+          ></TitleBar>
 
-            <Card>
-              <IndexTable
-                itemCount={products?.length}
-                resourceName={{
-                  singular: 'Product',
-                  plural: 'Products',
-                }}
-                selectable={false}
-                headings={[
-                  { title: 'Thumbnail', hidden: true },
-                  { title: 'Title' },
-                  { title: 'Price' },
-                  { title: 'Action' },
-                ]}
-              >
-                {rowMarkup}
-              </IndexTable>
-            </Card>
-          </>
-        )}
-      </Frame>
+          <Card>
+            <IndexTable
+              itemCount={products?.length}
+              resourceName={{
+                singular: 'Product',
+                plural: 'Products',
+              }}
+              selectable={false}
+              headings={[
+                { title: 'Thumbnail', hidden: true },
+                { title: 'Title' },
+                { title: 'Price' },
+                { title: 'Action' },
+              ]}
+            >
+              {rowMarkup}
+            </IndexTable>
+          </Card>
+        </>
+      )}
     </Page>
   );
 }
