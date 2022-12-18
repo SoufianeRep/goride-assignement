@@ -35,7 +35,7 @@ export default function Products() {
   );
 
   const rowMarkup = products?.map((product, index) => {
-    return <ProductRow product={product} index={index} />;
+    return <ProductRow product={product} key={index} />;
   });
 
   return (
@@ -55,8 +55,8 @@ export default function Products() {
               <IndexTable
                 itemCount={products?.length}
                 resourceName={{
-                  plural: 'Products',
                   singular: 'Product',
+                  plural: 'Products',
                 }}
                 selectable={false}
                 headings={[
