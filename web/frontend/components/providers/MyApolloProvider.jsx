@@ -1,12 +1,7 @@
 import { useAppBridge } from '@shopify/app-bridge-react';
 import { authenticatedFetch } from '@shopify/app-bridge-utils';
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  gql,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 export function MyApolloProvider({ children }) {
   const app = useAppBridge();

@@ -12,15 +12,15 @@ import {
   Form,
   Toast,
 } from '@shopify/polaris';
-// import { Toast } from '@shopify/app-bridge-react';
 import { useCallback, useState } from 'react';
 import { useAuthenticatedFetch } from '../hooks';
 
-export function ProductRow({ product, index }) {
+export function ProductRow({ product }) {
   const [popoverActive, setPopoverActive] = useState(false);
   const [price, setPrice] = useState(product.variants[0].price);
   const [newPrice, setNewPrice] = useState(price);
   const [isToastActive, setIsToastActive] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const fetch = useAuthenticatedFetch();
@@ -54,9 +54,12 @@ export function ProductRow({ product, index }) {
       if (response.ok) {
         const price = await response.json();
         setPrice(price);
-        setIsLoading(false);
+        setToastMessage(`${product.title}'s price updated`);
         setIsToastActive(true);
+        setIsLoading(false);
       } else {
+        setToastMessage('Unable to update the price for the moment');
+        setIsToastActive(true);
         setIsLoading(false);
       }
     },
@@ -78,7 +81,7 @@ export function ProductRow({ product, index }) {
   );
 
   return (
-    <IndexTable.Row id={product.id} key={product.id} position={index}>
+    <IndexTable.Row id={product.id} position={product.id}>
       <IndexTable.Cell>
         <Thumbnail source={ProductCostMajor} alt="placeholder" size="medium" />
       </IndexTable.Cell>
