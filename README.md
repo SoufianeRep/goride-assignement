@@ -1,4 +1,4 @@
-# GoRide Assignment App
+# Assignment App
 
 This is a simple embedded Shopify app installed on [fake store](https://gorideassignement.myshopify.com).
 It responds to two simple tasks:
