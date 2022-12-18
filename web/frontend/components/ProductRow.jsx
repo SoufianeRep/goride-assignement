@@ -69,11 +69,7 @@ export function ProductRow({ product }) {
   );
 
   const toastMarkup = isToastActive ? (
-    <Toast
-      content={`${product.title}'s price updated`}
-      onDismiss={toggleToast}
-      duration={3500}
-    />
+    <Toast content={toastMessage} onDismiss={toggleToast} duration={3500} />
   ) : null;
 
   const activator = (
@@ -109,7 +105,8 @@ export function ProductRow({ product }) {
               <Layout.Section>
                 <TextStyle alignement="start" heading>
                   Adjust{' '}
-                  <TextStyle variants="strong">{product.title}</TextStyle> Price
+                  <TextStyle variation="strong">{product.title}</TextStyle>{' '}
+                  Price
                 </TextStyle>
               </Layout.Section>
               <Layout.Section>
