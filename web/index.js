@@ -10,7 +10,8 @@ import serveStatic from 'serve-static';
 import cron from 'node-cron';
 
 import shopify from './shopify.js';
-import { titlesUpdator, loadSession } from './utils/titles-updator.js';
+import { titlesUpdator } from './utils/titles-updator.js';
+import loadSession from './utils/session-loader.js';
 import GDPRWebhookHandlers from './gdpr.js';
 
 import productsEndpoints from './routes/products-api.js';
