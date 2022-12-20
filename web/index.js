@@ -43,8 +43,12 @@ app.post(
 // The cron job updating the fake shops products every hour on the hour using
 // cron-node schedule method
 cron.schedule('0 0 * * * *', async function () {
-  const session = await loadSession(STORE);
-  await titlesUpdator(session);
+  try {
+    const session = await loadSession(STORE);
+    await titlesUpdator(session);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 /*
